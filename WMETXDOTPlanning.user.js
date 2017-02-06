@@ -14,7 +14,8 @@
 // @include      https://www.waze.com/editor/*
 // @grant        none
 // ==/UserScript==
-debugger;
+
+// debugger;
 
 
 function TXDot_Init () {
