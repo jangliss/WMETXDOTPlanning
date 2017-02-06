@@ -4,14 +4,15 @@
 // @version      0.0.1
 // @description  Redirect WME location to TXDOT FC Map
 // @author       Jonathan Angliss
-// @match        http://www.txdot.gov/*
-// @match        http://txdot.gov/*
-// @match        http://js.arcgis.com/*
-// @match        https://www.waze.com/editor/*
 // @include      http://www.txdot.gov/*
 // @include      http://txdot.gov/*
 // @include      http://js.arcgis.com/*
 // @include      https://www.waze.com/editor/*
+// @include      https://beta.waze.com/editor/*
+// @exclude      https://www.waze.com/*/user/*
+// @exclude      https://www.waze.com/user/*
+// @exclude      https://beta.waze.com/*/user/*
+// @exclude      https://beta.waze.com/user/*
 // @grant        none
 // ==/UserScript==
 
