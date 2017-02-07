@@ -4,6 +4,7 @@ A small add-on to open TXDOT statewide planning tool at the same location as WME
 
 ## Installation
 
+- TamperMonkey or GreaseMonkey need to be installed.
 - [Install the script](WMETXDOTPlanning.user.js?raw=1)
 - Reload WME
 
