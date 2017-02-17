@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WME TX DOT Planning
 // @namespace    https://github.com/jangliss/WMETXDOTPlanning/blob/master/WMETXDOTPlanning.user.js
-// @version      0.0.1
+// @version      0.0.2
 // @description  Redirect WME location to TXDOT FC Map
 // @author       Jonathan Angliss
 // @include      http://www.txdot.gov/*
@@ -25,13 +25,11 @@ function TXDot_Init () {
     var mURL = window.location.href;
 
     if (~mURL.toLowerCase().indexOf("txdot")) {
-        window.addEventListener('load', function() {
+        setTimeout(function() {
             var re = /\?wmeloc=([-]?[\d\.]+,[-]?[\d\.]+,\d+)/i;
             var res = re.exec(mURL);
             if (res.length === 2) {
                 var wmeArgs = res[1];
-                document.getElementById("Functional_Classification").click();
-                document.getElementById("tcLegend").click();
 
                 require(
                     ["esri/geometry/Point",
@@ -44,9 +42,10 @@ function TXDot_Init () {
                          var thePt = Point(theX,theY, new SpatialReference({ wkid: 4269 }));
                          map.centerAndZoom(webMercatorUtils.geographicToWebMercator(thePt),theZ);
                      });
-
+               document.getElementById("Functional_Classification").click();
+               document.getElementById("tcLegend").click();
             }
-        }, true);
+        }, 1500);
     }
     else if (~mURL.toLowerCase().indexOf('waze.com/editor')) {
         var location = $('div.location-info-region');
