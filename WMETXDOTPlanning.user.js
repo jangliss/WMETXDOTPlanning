@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WME TX DOT Planning
 // @namespace    https://github.com/jangliss/WMETXDOTPlanning/blob/master/WMETXDOTPlanning.user.js
-// @version      0.0.2
+// @version      0.0.3
 // @description  Redirect WME location to TXDOT FC Map
 // @author       Jonathan Angliss
 // @include      http://www.txdot.gov/*
@@ -16,6 +16,15 @@
 // @grant        none
 // ==/UserScript==
 
+/*
+  == ChangeLog ==
+  0.0.3 - Move to www.txdot.gov
+        - Add code to check for map loading instead of depending on timer (handles slower connections)
+  0.0.2 - Use timer after code change on txdot.gov
+  0.0.1 - Initial build.
+
+*/
+
 // debugger;
 
 
@@ -25,12 +34,15 @@ function TXDot_Init () {
     var mURL = window.location.href;
 
     if (~mURL.toLowerCase().indexOf("txdot")) {
-        setTimeout(function() {
+        if (typeof map == "undefined") {
+            setTimeout(TXDot_Init,500);
+        } else if ((map !== null) && (typeof map.loaded !== "undefined") && (map.loaded !== true)) {
+            setTimeout(TXDot_Init,500);
+        } else {
             var re = /\?wmeloc=([-]?[\d\.]+,[-]?[\d\.]+,\d+)/i;
             var res = re.exec(mURL);
             if (res.length === 2) {
                 var wmeArgs = res[1];
-
                 require(
                     ["esri/geometry/Point",
                      "esri/SpatialReference",
@@ -45,7 +57,7 @@ function TXDot_Init () {
                document.getElementById("Functional_Classification").click();
                document.getElementById("tcLegend").click();
             }
-        }, 1500);
+        }
     }
     else if (~mURL.toLowerCase().indexOf('waze.com/editor')) {
         var location = $('div.location-info-region');
@@ -56,7 +68,7 @@ function TXDot_Init () {
         location.after('<div class="btn-group btn-group-sm" style="float:left; margin-left:1rem;"><a id="txdot_planning" class="btn btn-default" style="border:1px solid" target="_blank" href="#">TXDOT</a></div>');
 
         W.map.events.register('moveend', null, function() {
-            var outURL = 'http://txdot.gov/apps/statewide_mapping/StatewidePlanningMap.html?wmeloc=<lon>,<lat>,<zoom>';
+            var outURL = 'http://www.txdot.gov/apps/statewide_mapping/StatewidePlanningMap.html?wmeloc=<lon>,<lat>,<zoom>';
             var center = W.map.getCenter().transform(new OpenLayers.Projection("EPSG:900913"), new OpenLayers.Projection("EPSG:4326"));
             var mZoom = Waze.map.zoom;
             mZoom = (mZoom < 4 ? mZoom + 12 : 15);
