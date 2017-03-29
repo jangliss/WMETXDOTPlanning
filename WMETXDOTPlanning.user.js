@@ -7,17 +7,13 @@
 // @include      http://www.txdot.gov/*
 // @include      http://txdot.gov/*
 // @include      http://js.arcgis.com/*
-// @include      https://www.waze.com/editor/*
-// @include      https://beta.waze.com/editor/*
-// @exclude      https://www.waze.com/*/user/*
-// @exclude      https://www.waze.com/user/*
-// @exclude      https://beta.waze.com/*/user/*
-// @exclude      https://beta.waze.com/user/*
+// @include     /^https:\/\/(www|beta)\.waze\.com\/(?!user\/)(.{2,6}\/)?editor\/.*$/
 // @grant        none
 // ==/UserScript==
 
 /*
   == ChangeLog ==
+  0.0.4 - Adjust code to handle new localizations options in URL.
   0.0.3 - Move to www.txdot.gov
         - Add code to check for map loading instead of depending on timer (handles slower connections)
   0.0.2 - Use timer after code change on txdot.gov
@@ -59,7 +55,7 @@ function TXDot_Init () {
             }
         }
     }
-    else if (~mURL.toLowerCase().indexOf('waze.com/editor')) {
+    else if (~mURL.toLowerCase().indexOf('waze.com')) {
         var location = $('div.location-info-region');
         if  (location.length === 0) {
             setTimeout(TXDot_Init, 1000);
