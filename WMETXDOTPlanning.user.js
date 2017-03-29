@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WME TX DOT Planning
 // @namespace    https://github.com/jangliss/WMETXDOTPlanning/blob/master/WMETXDOTPlanning.user.js
-// @version      0.0.3
+// @version      0.0.4
 // @description  Redirect WME location to TXDOT FC Map
 // @author       Jonathan Angliss
 // @include      http://www.txdot.gov/*
