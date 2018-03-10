@@ -1,18 +1,19 @@
 // ==UserScript==
 // @name         WME TX DOT Planning
 // @namespace    https://github.com/jangliss/WMETXDOTPlanning/blob/master/WMETXDOTPlanning.user.js
-// @version      0.0.4
+// @version      0.0.5
 // @description  Redirect WME location to TXDOT FC Map
 // @author       Jonathan Angliss
 // @include      http://www.txdot.gov/*
 // @include      http://txdot.gov/*
 // @include      http://js.arcgis.com/*
-// @include     /^https:\/\/(www|beta)\.waze\.com\/(?!user\/)(.{2,6}\/)?editor\/.*$/
+// @include     /^https:\/\/(www|beta)\.waze\.com\/(?!user\/)(.{2,6}\/)?editor\/?.*$/
 // @grant        none
 // ==/UserScript==
 
 /*
   == ChangeLog ==
+  0.0.5 - Fix for missing / in the editor URLs
   0.0.4 - Adjust code to handle new localizations options in URL.
   0.0.3 - Move to www.txdot.gov
         - Add code to check for map loading instead of depending on timer (handles slower connections)
