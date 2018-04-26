@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WME TX DOT Planning
 // @namespace    https://github.com/jangliss/WMETXDOTPlanning/blob/master/WMETXDOTPlanning.user.js
-// @version      0.0.6
+// @version      0.0.7
 // @description  Redirect WME location to TXDOT FC Map
 // @author       Jonathan Angliss
 // @include      https://www.txdot.gov/*
@@ -13,6 +13,7 @@
 
 /*
   == ChangeLog ==
+  0.0.7 - Fix for Waze object changes
   0.0.6 - Fix URLs as TXDOT has moved to https
   0.0.5 - Fix for missing / in the editor URLs
   0.0.4 - Adjust code to handle new localizations options in URL.
@@ -68,7 +69,7 @@ function TXDot_Init () {
         W.map.events.register('moveend', null, function() {
             var outURL = 'http://www.txdot.gov/apps/statewide_mapping/StatewidePlanningMap.html?wmeloc=<lon>,<lat>,<zoom>';
             var center = W.map.getCenter().transform(new OpenLayers.Projection("EPSG:900913"), new OpenLayers.Projection("EPSG:4326"));
-            var mZoom = Waze.map.zoom;
+            var mZoom = W.map.zoom;
             mZoom = (mZoom < 4 ? mZoom + 12 : 15);
             $('#txdot_planning').prop('href', outURL.replace('<lat>',center.lat).replace('<lon>',center.lon).replace('<zoom>', mZoom));
         });
