@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WME TX DOT Planning
 // @namespace    https://github.com/jangliss/WMETXDOTPlanning/blob/master/WMETXDOTPlanning.user.js
-// @version      0.0.8
+// @version      0.0.9
 // @description  Redirect WME location to TXDOT FC Map
 // @author       Jonathan Angliss
 // @include      https://www.txdot.gov/*
@@ -13,6 +13,7 @@
 
 /*
   == ChangeLog ==
+  0.0.9 - Call new init not old one.
   0.0.8 - Fixing Waze changes.
   0.0.7 - Fix for Waze object changes
   0.0.6 - Fix URLs as TXDOT has moved to https
@@ -85,9 +86,9 @@ function TXDOTP_Init() {
 
     if (mURL.includes("txdot.gov")) {
         if (typeof map == "undefined") {
-            setTimeout(TXDot_Init,500);
+            setTimeout(TXDOTP_Init,500);
         } else if ((map !== null) && (typeof map.loaded !== "undefined") && (map.loaded !== true)) {
-            setTimeout(TXDot_Init,500);
+            setTimeout(TXDOTP_Init,500);
         } else {
             TXDot_Init();
         }
